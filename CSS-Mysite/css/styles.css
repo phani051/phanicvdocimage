@@ -1,0 +1,182 @@
+body {
+  text-align: center;
+  margin: 0;
+  position: relative;
+  font-family: 'Merriweather', serif;
+  min-height: 100%;
+  color: #40515E;
+}
+
+.top_container {
+  /*background-color: #A2DBFA;*/
+  background-image: linear-gradient(#A2DBFA, white);
+  padding-top: 0;
+  padding-bottom: 32%;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.top_cloud {
+  position: absolute;
+  top: 10%;
+  right: 20%;
+}
+
+.bottom_cloud {
+  position: absolute;
+  bottom: 35%;
+  left: 25%;
+}
+
+.mountain {
+  position: absolute;
+  bottom: 0;
+  right: 32%;
+}
+
+.profile {
+  background-image: linear-gradient(white, #DEEDF0, white);
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin: 0;
+}
+
+.intro{
+  width: 30%;
+  margin: auto;
+  line-height: 2;
+}
+
+h1 {
+  margin: 0;
+  font-family: 'Sacramento', cursive;
+  padding-top: 13%;
+  font-size: 500%;
+  color: #0C4271;
+}
+
+h2 {
+  font-family: 'Nunito', sans-serif;
+  color: #125D98;
+  padding: 20px;
+}
+
+h3 {
+  font-family: 'Montserrat', sans-serif;
+  color: #1768AC;
+}
+
+h6 {
+  margin: 0;
+  font-family: 'Montserrat', ans-serif;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: #0C4271;
+}
+
+.footer-link {
+  color: #39A2DB;
+}
+
+.skills{
+  padding-top: 20px;
+}
+
+.skill-row {
+  width: 50%;
+  margin: 50px auto 200px auto;
+  text-align: left;
+  line-height: 2;
+}
+
+.multimedia {
+  width: 25%;
+  float: right;
+  margin: auto 30px auto 50px;
+}
+
+.backup {
+  width: 25%;
+  float: left;
+  margin: auto 30px auto 50px;
+}
+
+.scripting {
+  width: 25%;
+  float: left;
+  margin: auto 30px auto 50px;
+}
+
+.socialmedia {
+  margin: 20px;
+}
+
+.webicon{
+  width: 2%;
+  position: relative;
+  margin: 20px;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+
+
+a:hover{
+  filter: drop-shadow(20px -2px 4px #9BA4B4);
+
+}
+
+a:active{
+  position: relative;
+  top: 1px;
+}
+
+.contact-me{
+  padding-top: 20px;
+}
+
+.contact-msg{
+  width: 30%;
+  margin: 40px auto 20px;
+  font-size: 0.8em;
+}
+
+.contact-msg-h3{
+  width: 80%;
+  margin: 10px auto 20px;
+  font-size: 1em;
+}
+
+.button {
+  background-color: #A2DBFA;
+  width: 7%;
+  height: 40px;
+  text-align: center;
+  position: relative;
+  left: 45%;
+  border-radius: 8px;
+}
+
+.bottom-container {
+  background-color: #A2DBFA;
+  padding-bottom: 0;
+  margin-top: 20px;
+}
+
+hr {
+  border-style: none;
+  border-top-style: dotted;
+  border-color: #47597E;
+  border-width: 6px;
+  width: 3%;
+}
+
+.last-p {
+  margin: 0;
+  padding-bottom: 20px;
+  color: white;
+  font-size: 0.75em;
+}
