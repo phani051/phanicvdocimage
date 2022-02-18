@@ -1,0 +1,148 @@
+// pipeline {
+// environment {
+// registry = "phani051/cvbuild"
+// registryCredential = 'dockerhub_ID'
+// dockerImage = ''
+// }
+// agent any
+// stages {
+// stage ('Cloning our Git'){
+// steps {
+// git 'https://github.com/phani051/phanicvdocimage.git'
+// }
+// }
+// stage ('Building our image') {
+// steps {
+// script{
+// dockerImage = docker.build registry + ":v$BUILD_NUMBER"
+// }
+// }
+// }
+// stage ('Push image to docker hub') {
+// steps {
+// script{
+// docker.withRegistry( '', registryCredential ){
+// dockerImage.push()
+// }
+// }
+// }
+// }
+// stage ('Cleaning up') {
+// steps {
+// sh "docker rmi $registry:v$BUILD_NUMBER"
+// }
+// }
+// stage ('Deploying to Docker swarm'){
+// steps {
+// sh "docker -H tcp://10.1.1.119:2375 service rm mycv || true "
+// sh "docker -H tcp://10.1.1.119:2375 service create --name mycv -p 8100:80 $registry:v$BUILD_NUMBER"
+// }
+// }
+// }
+// }
+
+// ===================================
+
+
+pipeline {
+environment {
+registry = "phani051/cvbuild"
+registryCredential = 'dockerhub_ID'
+dockerImage = ''
+}
+agent any
+stages {
+stage ('Cloning our Git'){
+steps {
+git 'https://github.com/phani051/phanicvdocimage.git'
+}
+}
+stage ('Copy artifacts to docker host'){
+    steps  {
+        sh "scp -o StrictHostKeyChecking=no -o NoHostAuthenticationForLocalhost=yes -o UserKnownHostsFile=/dev/null -r -i /home/ubuntu/Shell.pem /var/lib/jenkins/workspace/phanicv/* ubuntu@10.1.1.119:/home/ubuntu/"
+    }
+}
+stage ('Building our image') {
+steps {
+    sh "docker -H tcp://10.1.1.119:2375 build -f /home/ubuntu/Dockerfile"
+
+}
+}
+stage ('Push image to docker hub') {
+steps {
+script{
+docker.withRegistry( '', registryCredential ){
+dockerImage.push()
+}
+}
+}
+}
+stage ('Cleaning up') {
+steps {
+sh "docker rmi $registry:v$BUILD_NUMBER"
+}
+}
+stage ('Deploying to Docker swarm'){
+steps {
+sh "docker -H tcp://10.1.1.119:2375 service rm mycv || true "
+sh "docker -H tcp://10.1.1.119:2375 service create --name mycv -p 8100:80 $registry:v$BUILD_NUMBER"
+}
+}
+}
+}
+
+
+
+
+
+
+
+
+// <?xml version="1.0" encoding="UTF-8"?>
+// <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+// <plist version="1.0">
+// <dict>
+// 	<key>Label</key>
+// 	<string>homebrew.mxcl.jenkins-lts</string>
+// 	<key>ProgramArguments</key>
+// 	<array>
+// 		<string>/usr/local/opt/openjdk@11/bin/java</string>
+// 		<string>-Dmail.smtp.starttls.enable=true</string>
+// 		<string>-jar</string>
+// 		<string>/usr/local/opt/jenkins-lts/libexec/jenkins.war</string>
+// 		<string>--httpListenAddress=127.0.0.1</string>
+// 		<string>--httpPort=8080</string>
+// 	</array>
+// 	<key>RunAtLoad</key>
+// 	<true/>
+// </dict>
+// </plist>
+
+
+
+
+
+// <?xml version="1.0" encoding="UTF-8"?>
+// <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+// <plist version="1.0">
+// <dict>
+// 	<key>Label</key>
+// 	<string>homebrew.mxcl.jenkins-lts</string>
+// 	<key>ProgramArguments</key>
+// 	<array>
+// 		<string>/usr/local/opt/openjdk@11/bin/java</string>
+// 		<string>-Dmail.smtp.starttls.enable=true</string>
+// 		<string>-jar</string>
+// 		<string>/usr/local/opt/jenkins-lts/libexec/jenkins.war</string>
+// 		<string>--httpListenAddress=127.0.0.1</string>
+// 		<string>--httpPort=8080</string>
+// 	</array>
+// 	<key>RunAtLoad</key>
+// 	<true/>
+//     <key>EnvironmentVariables</key>
+//     <dict>
+//       <key>PATH</key>
+//       <string>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Docker.app/Contents/Resources/bin/:/Users/Kh0a/Library/Group\ Containers/group.com.docker/Applications/Docker.app/Contents/Resources/bin</string>
+//     </dict>
+// </dict>
+// </plist>
